@@ -508,7 +508,7 @@ We will use <code>pathlib.Path</code> for that purpose.</p>
 </code></pre></div>
 
 
-<p>This is our top level function that processes each file.
+<p>Next comes our top level function that processes each file.
 Notice how we also have docstrings in each function, as usual. 
 Docstrings are for guiding developers when inspecting our code via IntelliSense and such.
 Hence, they should be fairly self-contained.</p>
@@ -521,10 +521,13 @@ of your code, and will be rendered as code.</p>
 That way, they will have as little comments as possible, ideally none, because the surrounding
 comments are already enough to make everything as clear as it needs to be.
 If a method, including comments, is longer than one screen of text, consider refactoring it.</p>
-<p>One more thing, before I forget, is that we need fancy progress bars.</p>
+<p>One more thing, before I forget, is that we want <a href="https://tqdm.github.io/">fancy progress bars</a>.</p>
 <div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">tqdm</span>
+</code></pre></div>
 
-<span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="n">src_folder</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">output_folder</span><span class="p">:</span> <span class="n">Path</span><span class="p">):</span>
+
+<p>And finally, as promised, here comes the function.</p>
+<div class="codehilite"><pre><span></span><code><span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="n">src_folder</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">output_folder</span><span class="p">:</span> <span class="n">Path</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Processes all the Python source files in `src_folder`, recursively,</span>
 <span class="sd">    and writes the corresponding Markdown files to `output_folder`.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
