@@ -59,6 +59,11 @@
     <label class="md-overlay" for="__drawer"></label>
     <div data-md-component="skip">
       
+        
+        <a href="#content-blocks" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
     <div data-md-component="announce">
       
@@ -236,9 +241,43 @@
     <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
     
     
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        illiterate.core
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
     <a href="./" title="illiterate.core" class="md-nav__link md-nav__link--active">
       illiterate.core
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#content-blocks" class="md-nav__link">
+    Content Blocks
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-parser" class="md-nav__link">
+    The Parser
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
     
   </li>
 
@@ -279,6 +318,41 @@
               </div>
             
             
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#content-blocks" class="md-nav__link">
+    Content Blocks
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-parser" class="md-nav__link">
+    The Parser
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
           
           <div class="md-content">
             <article class="md-content__inner md-typeset">
@@ -294,25 +368,48 @@
                 
                   <h1>illiterate.core</h1>
                 
-                <div class="codehilite"><pre><span></span><code><span class="sd">&quot;&quot;&quot;This module contains the classes that represent the types of content inside a Python file</span>
-<span class="sd">and perform the necessary conversions.</span>
+                <div class="codehilite"><pre><span></span><code><span class="sd">&quot;&quot;&quot;This module contains the classes that represent the types of content </span>
+<span class="sd">inside a Python file and perform the necessary conversions.</span>
 <span class="sd">&quot;&quot;&quot;</span>
-
-<span class="kn">import</span> <span class="nn">abc</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">TextIO</span>
+</code></pre></div>
 
 
-<span class="k">class</span> <span class="nc">Block</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABC</span><span class="p">):</span>
-    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">):</span>
+<p>To represent the different types of content in a single Python file, 
+we will use two classes.
+These classes will represent, respectively, a block of Python code
+and a block of Markdown code.</p>
+<p>The only difference between these two types of content that we care of
+is how they are printed as Markdown.
+Other than that, both types of content are simply a list of text lines.</p>
+<p>There is however one common functionality for both.
+Depending on how the file is structured, we might end up with
+spurious empty lines at the begining or end of any block.
+This might not be a big issue for Markdown, in some cases, but it is
+definitely a problem for Python code.
+Hence, we will remove all the empty lines at the begining and the end
+of each block.</p>
+<p>The common functionality will go into an abstract class.</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">abc</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">TextIO</span><span class="p">,</span> <span class="n">List</span>
+</code></pre></div>
+
+
+<h2 id="content-blocks">Content Blocks<a class="headerlink" href="#content-blocks" title="Permanent link">&para;</a></h2>
+<p>The only relevant functionality in this class is cleaning up
+the list of content.
+We also define abstract method <code>print</code> which inheritors
+will override to determine how different types of content are printed.</p>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">Block</span><span class="p">(</span><span class="n">abc</span><span class="o">.</span><span class="n">ABC</span><span class="p">):</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">content</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
         <span class="k">while</span> <span class="n">content</span><span class="p">:</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">content</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
-                <span class="n">content</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">content</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span> <span class="c1"># testing for emptyness</span>
+                <span class="n">content</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>         <span class="c1"># from the top down</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">break</span>
 
         <span class="k">while</span> <span class="n">content</span><span class="p">:</span>
-            <span class="k">if</span> <span class="ow">not</span> <span class="n">content</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span>
-                <span class="n">content</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">content</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">strip</span><span class="p">():</span> <span class="c1"># testing for emptyness</span>
+                <span class="n">content</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>           <span class="c1"># from the bottom up</span>
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">break</span>
 
@@ -321,9 +418,15 @@
     <span class="nd">@abc</span><span class="o">.</span><span class="n">abstractmethod</span>
     <span class="k">def</span> <span class="nf">print</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fp</span><span class="p">:</span> <span class="n">TextIO</span><span class="p">):</span>
         <span class="k">pass</span>
+</code></pre></div>
 
 
-<span class="k">class</span> <span class="nc">Markdown</span><span class="p">(</span><span class="n">Block</span><span class="p">):</span>
+<p>Markdown blocks are either formed by lines starting with <code>#</code>
+(i.e., Python comments) or blank lines.
+For every line that starts with <code>#_</code>, we simply remove the first two
+characters, i.e., the sharp symbol and the starting space.
+For blank lines, we just output them as-is. </p>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">Markdown</span><span class="p">(</span><span class="n">Block</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">print</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fp</span><span class="p">:</span> <span class="n">TextIO</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">content</span><span class="p">:</span>
             <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;# &quot;</span><span class="p">):</span>
@@ -332,9 +435,13 @@
                 <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
         <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
 
 
-<span class="k">class</span> <span class="nc">Python</span><span class="p">(</span><span class="n">Block</span><span class="p">):</span>
+<p>Python blocks are even easier, since we will print them as-is.
+The only point to keep in mind is to output a Markdown fenced code block
+before and after the actual code.</p>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">Python</span><span class="p">(</span><span class="n">Block</span><span class="p">):</span>
     <span class="k">def</span> <span class="nf">print</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fp</span><span class="p">:</span> <span class="n">TextIO</span><span class="p">):</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">content</span><span class="p">:</span>
             <span class="k">return</span>
@@ -345,21 +452,35 @@
             <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">line</span><span class="p">)</span>
 
         <span class="n">fp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;```</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
+</code></pre></div>
 
 
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
-
-
-<span class="k">class</span> <span class="nc">Content</span><span class="p">:</span>
+<p>Once we have our content types correctly implemented, we will
+define a container class that stores a sequence of possible <code>Block</code>s.
+This will make it easier later to dump a bunch of different blocks with
+a single instruction.</p>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">Content</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">content</span><span class="p">:</span> <span class="n">Iterable</span><span class="p">[</span><span class="n">Block</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">content</span> <span class="o">=</span> <span class="n">content</span>
 
     <span class="k">def</span> <span class="nf">dump</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">fp</span><span class="p">:</span> <span class="n">TextIO</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">block</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">content</span><span class="p">:</span>
             <span class="n">block</span><span class="o">.</span><span class="n">print</span><span class="p">(</span><span class="n">fp</span><span class="p">)</span>
+</code></pre></div>
 
 
-<span class="k">class</span> <span class="nc">Parser</span><span class="p">:</span>
+<h2 id="the-parser">The Parser<a class="headerlink" href="#the-parser" title="Permanent link">&para;</a></h2>
+<p>Finally, we have come to the core functionality of illiterate, the class
+that reads Python source code and produces the corresponding blocks.</p>
+<p>Since we don't really care about the structure of the code, this parser
+is very simple. Formally, we are dealing with a regular language, since
+we can determine what type of content we are dealing with based solely on the
+first character.
+Intuitively, as long as we are seeing either a <code>#</code> or blank lines, we are
+seeing Markdown. Once we see a line that doesn't begin with a <code>#</code>, that
+must be code.
+The parser is then a very simple automaton with two states. </p>
+<div class="codehilite"><pre><span></span><code><span class="k">class</span> <span class="nc">Parser</span><span class="p">:</span>
     <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">input_src</span><span class="p">:</span> <span class="n">TextIO</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">input_src</span> <span class="o">=</span> <span class="n">input_src</span>
 

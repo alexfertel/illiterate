@@ -302,19 +302,16 @@
 </code></pre></div>
 
 
-<p>We need <code>pathlib</code> to resolve paths automatically</p>
-<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
-<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
-<span class="kn">import</span> <span class="nn">shutil</span>
-</code></pre></div>
-
-
-<p>And <code>typer</code> to actually create the CLI app.</p>
+<p>The illiterate CLI app is a very simple <a href="https://typer.tiangolo.com">Typer</a>
+application with a single command.
+Typer is a CLI creation tool where you define commands as methods,
+and it takes advantage of Python type annotations to provide argument parsing
+and documentation.</p>
 <div class="codehilite"><pre><span></span><code><span class="kn">import</span> <span class="nn">typer</span>
 </code></pre></div>
 
 
-<p>Finally, this is the main function that does all the heavy lifting.</p>
+<p>This is the main function that does all the heavy lifting.</p>
 <div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">process</span>
 </code></pre></div>
 
@@ -324,7 +321,14 @@
 </code></pre></div>
 
 
-<p>And here is the only command.</p>
+<p>These are the types for our arguments, and <code>shutil</code> for copying files.</p>
+<div class="codehilite"><pre><span></span><code><span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">typing</span> <span class="kn">import</span> <span class="n">List</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+</code></pre></div>
+
+
+<p>And here is the command implementation.</p>
 <div class="codehilite"><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
 <span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">src_folder</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">output_folder</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">copy</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Path</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
     <span class="c1"># Not much too see here ;)</span>
