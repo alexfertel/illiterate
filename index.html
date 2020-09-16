@@ -9,21 +9,21 @@
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
       
-        <link rel="canonical" href="https://apiad.net/illiterate/Readme/">
+        <link rel="canonical" href="https://apiad.net/illiterate/">
       
       
-      <link rel="shortcut icon" href="../assets/images/favicon.png">
+      <link rel="shortcut icon" href="assets/images/favicon.png">
       <meta name="generator" content="mkdocs-1.1, mkdocs-material-5.5.12">
     
     
       
-        <title>Home - Illiterate</title>
+        <title>Illiterate</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.4dd2dd8d.min.css">
+      <link rel="stylesheet" href="assets/stylesheets/main.4dd2dd8d.min.css">
       
-        <link rel="stylesheet" href="../assets/stylesheets/palette.6a5ad368.min.css">
+        <link rel="stylesheet" href="assets/stylesheets/palette.6a5ad368.min.css">
       
       
         
@@ -201,7 +201,7 @@
         <span class="md-nav__icon md-icon"></span>
       </label>
     
-    <a href="./" title="Home" class="md-nav__link md-nav__link--active">
+    <a href="." title="Home" class="md-nav__link md-nav__link--active">
       Home
     </a>
     
@@ -280,7 +280,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../illiterate.__init__/" title="illiterate" class="md-nav__link">
+    <a href="illiterate.__init__/" title="illiterate" class="md-nav__link">
       illiterate
     </a>
   </li>
@@ -292,7 +292,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../illiterate.core/" title="illiterate.core" class="md-nav__link">
+    <a href="illiterate.core/" title="illiterate.core" class="md-nav__link">
       illiterate.core
     </a>
   </li>
@@ -304,7 +304,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../illiterate.cli/" title="illiterate.cli" class="md-nav__link">
+    <a href="illiterate.cli/" title="illiterate.cli" class="md-nav__link">
       illiterate.cli
     </a>
   </li>
@@ -316,7 +316,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../illiterate.__main__/" title="illiterate.main" class="md-nav__link">
+    <a href="illiterate.__main__/" title="illiterate.main" class="md-nav__link">
       illiterate.main
     </a>
   </li>
@@ -390,7 +390,7 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/apiad/illiterate/edit/master/docs/Readme.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/apiad/illiterate/edit/master/docs/index.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
@@ -469,13 +469,15 @@ It will parse all your code, and output nicely formatted Markdown versions of ea
 </code></pre></div>
 
 
-<p>Where <code>[src]</code> is folder that is the root of your project's code (i.e., the top level folder with an <code>__init__.py</code> inside), and <code>[output]</code> is where you want the markdown files. </p>
+<p>Where <code>[src]</code> is folder that is the root of your project's code (i.e., the top level folder with an <code>__init__.py</code> inside), and <code>[output]</code> is where you want the markdown files. You can add <code>--copy from:to</code> to copy verbatim some files into the output folder.
+I do this for copying the <code>Readme.md</code> into an <code>index.md</code> which becomes the homepage.</p>
 <p>For example, in this project, standing on the root folder (where this Readme is located), you would run the following (🤓 yeah, it is kind if Inception-ish):</p>
-<div class="codehilite"><pre><span></span><code><span class="err">python -m illiterate illiterate docs</span>
+<div class="codehilite"><pre><span></span><code><span class="err">python -m illiterate illiterate docs --copy Readme.md:index.md</span>
 </code></pre></div>
 
 
-<p>This will take all the code in <code>[src]</code>, convert it to Markdown, and drop it inside the <code>[output]</code> folder. That's it. </p>
+<p>This will take all the code in <code>illiterate</code>, convert it to Markdown, and drop it inside the <code>docs</code> folder.
+It will also copy the <code>Readme.md</code> file into <code>docs/index.md</code>.</p>
 <p>What you do with those Markdowns is up to you. In this project, I use <a href="https://mkdocs.org">mkdocs</a> for documentation. 
 If you have <code>mkdocs</code>, then make sure to have your <code>mkdocs.yml</code> correctly configured so that it renders those freshly created markdowns. 
 You can also see the <code>mkdocs.yml</code> in this repostory to get an idea of how that configuration looks, but beware, I'm using some custom
@@ -502,7 +504,7 @@ themes and other stuff you might or might not want.</p>
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
         
-          <a href="../illiterate.__init__/" title="illiterate" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="illiterate.__init__/" title="illiterate" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
@@ -535,15 +537,15 @@ themes and other stuff you might or might not want.</p>
       
     </div>
     
-      <script src="../assets/javascripts/vendor.3636a4ec.min.js"></script>
-      <script src="../assets/javascripts/bundle.e9fe3281.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
+      <script src="assets/javascripts/vendor.3636a4ec.min.js"></script>
+      <script src="assets/javascripts/bundle.e9fe3281.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents"}</script>
       
       <script>
         app = initialize({
-          base: "..",
+          base: ".",
           features: [],
           search: Object.assign({
-            worker: "../assets/javascripts/worker/search.5eca75d3.min.js"
+            worker: "assets/javascripts/worker/search.5eca75d3.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>

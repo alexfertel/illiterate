@@ -183,7 +183,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../Readme/" title="Home" class="md-nav__link">
+    <a href=".." title="Home" class="md-nav__link">
       Home
     </a>
   </li>
@@ -330,14 +330,19 @@ and documentation.</p>
 
 <p>And here is the command implementation.</p>
 <div class="codehilite"><pre><span></span><code><span class="nd">@app</span><span class="o">.</span><span class="n">command</span><span class="p">()</span>
-<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">src_folder</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">output_folder</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">copy</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="n">Path</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="k">def</span> <span class="nf">main</span><span class="p">(</span><span class="n">src_folder</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">output_folder</span><span class="p">:</span> <span class="n">Path</span><span class="p">,</span> <span class="n">copy</span><span class="p">:</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
     <span class="c1"># Not much too see here ;)</span>
     <span class="n">process</span><span class="p">(</span><span class="n">src_folder</span><span class="p">,</span> <span class="n">output_folder</span><span class="p">)</span>
 
     <span class="c1"># Copy verbatim all necessary files</span>
     <span class="k">if</span> <span class="n">copy</span><span class="p">:</span>
         <span class="k">for</span> <span class="n">fname</span> <span class="ow">in</span> <span class="n">copy</span><span class="p">:</span>
-            <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">fname</span><span class="p">,</span> <span class="n">output_folder</span> <span class="o">/</span> <span class="n">fname</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+            <span class="k">if</span> <span class="s2">&quot;:&quot;</span> <span class="ow">in</span> <span class="n">fname</span><span class="p">:</span>
+                <span class="n">fin</span><span class="p">,</span> <span class="n">fout</span> <span class="o">=</span> <span class="n">fname</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">fin</span><span class="p">,</span> <span class="n">fout</span> <span class="o">=</span> <span class="n">fname</span><span class="p">,</span> <span class="n">Path</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span><span class="o">.</span><span class="n">name</span>
+
+            <span class="n">shutil</span><span class="o">.</span><span class="n">copy</span><span class="p">(</span><span class="n">fin</span><span class="p">,</span> <span class="n">output_folder</span> <span class="o">/</span> <span class="n">fout</span><span class="p">)</span>
 </code></pre></div>
                 
               
